@@ -41,7 +41,7 @@ RADARR_API_KEY = os.environ.get('RADARR_API_KEY', 'your_radarr_api_key')
 MODEL_SERVER = os.environ.get('MODEL_SERVER', 'GROQ')
 GROQ_API_KEY = os.environ.get('GROQ_API_KEY', '')
 OLLAMA_URL = os.environ.get('OLLAMA_URL', 'http://localhost:11434')
-MODEL = os.environ.get('MODEL', 'mixtral-8x7b-32768')
+MODEL = os.environ.get('MODEL', 'llama-3.1-8b-instant')
 plex = PlexServer(PLEX_URL, PLEX_TOKEN)
 radarr = RadarrAPI(RADARR_URL, RADARR_API_KEY)
 groq_client = groq.Client(api_key=GROQ_API_KEY)
@@ -58,7 +58,7 @@ DEFAULT_ROOT_FOLDER = "/movies"
 DEFAULT_QUALITY_PROFILE = "HD-1080p"
 DEFAULT_PLEX_LIBRARY = "Films"
 DEFAULT_LANG = "english"
-DEFAULT_MODEL = "mixtral-8x7b-32768"
+DEFAULT_MODEL = "llama-3.1-8b-instant"
 
 class AIClient(ABC):
     @abstractmethod
