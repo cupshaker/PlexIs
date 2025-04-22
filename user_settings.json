@@ -1,1 +1,1 @@
-{"root_folder": "/data/FILM", "quality_profile": "MULTI VF VO", "plex_library": "Films", "language": "french", "model": "mixtral-8x7b-32768"}
+{"root_folder": "/data/FILM", "quality_profile": "MULTI VF VO", "plex_library": "Films", "language": "french", "model": "llama-3.1-8b-instant"}
