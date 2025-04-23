@@ -68,22 +68,36 @@ function togglePirateMode(enabled) {
         }
 
         function saveSettings() {
-            const settings = {
-                root_folder: document.getElementById('root-folder').value,
-                quality_profile: document.getElementById('quality-profile').value,
-                plex_library: document.getElementById('plex-library').value,
-                language: document.getElementById('language').value,
-                model: document.getElementById('modelSelect').value
-            };
-            axios.post('/save_settings', settings)
-                .then(function (response) {
-                    changeLanguage(settings.language);
-                    bootstrap.Modal.getInstance(document.getElementById('settingsModal')).hide();
-                })
-                .catch(function (error) {
-                    console.error('Error saving settings:', error);
-                });
-        }
+    // Récupère tous les champs potentiels du formulaire de settings
+    const settings = {
+        root_folder: document.getElementById('root-folder').value,
+        quality_profile: document.getElementById('quality-profile').value,
+        plex_library: document.getElementById('plex-library').value,
+        language: document.getElementById('language').value,
+        model: document.getElementById('modelSelect').value,
+        media_server: document.getElementById('media_server') ? document.getElementById('media_server').value : undefined,
+        plex_url: document.getElementById('plex_url') ? document.getElementById('plex_url').value : undefined,
+        plex_token: document.getElementById('plex_token') ? document.getElementById('plex_token').value : undefined,
+        jellyfin_url: document.getElementById('jellyfin_url') ? document.getElementById('jellyfin_url').value : undefined,
+        jellyfin_api_key: document.getElementById('jellyfin_api_key') ? document.getElementById('jellyfin_api_key').value : undefined,
+        jellyfin_user: document.getElementById('jellyfin_user') ? document.getElementById('jellyfin_user').value : undefined,
+        radarr_url: document.getElementById('radarr_url') ? document.getElementById('radarr_url').value : undefined,
+        radarr_api_key: document.getElementById('radarr_api_key') ? document.getElementById('radarr_api_key').value : undefined,
+        llm_provider: document.getElementById('llm_provider') ? document.getElementById('llm_provider').value : undefined,
+        groq_api_key: document.getElementById('groq_api_key') ? document.getElementById('groq_api_key').value : undefined,
+        ollama_url: document.getElementById('ollama_url') ? document.getElementById('ollama_url').value : undefined,
+        openai_api_key: document.getElementById('openai_api_key') ? document.getElementById('openai_api_key').value : undefined
+    };
+    axios.post('/save_settings', settings)
+        .then(function (response) {
+            changeLanguage(settings.language);
+            bootstrap.Modal.getInstance(document.getElementById('settingsModal')).hide();
+        })
+        .catch(function (error) {
+            console.error('Error saving settings:', error);
+        });
+}
+
 
 
         function displayResults(data) {

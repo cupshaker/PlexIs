@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Onboarding - PlexIs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; }
+        .onboarding-container { max-width: 500px; margin: 40px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 2em; }
+        h2 { text-align: center; }
+        label { display: block; margin-top: 1em; }
+        input, select { width: 100%; padding: 0.5em; margin-top: 0.2em; border-radius: 5px; border: 1px solid #ccc; }
+        button { margin-top: 2em; width: 100%; padding: 1em; background: #007bff; color: #fff; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+<div class="onboarding-container">
+    <h2>Welcome to PlexIs</h2>
+    <form method="POST">
+        <label>Media Server
+            <select name="media_server" id="media_server" required>
+                <option value="plex">Plex</option>
+                <option value="jellyfin">Jellyfin</option>
+            </select>
+        </label>
+        <div id="plex-fields">
+            <label>Plex URL <input type="text" name="plex_url" placeholder="http://localhost:32400"></label>
+<small style="color: #888; font-size: 0.9em; margin-left:2px;">Must start with http:// or https://</small>
+            <label>Plex Token <input type="text" name="plex_token"></label>
+        </div>
+        <div id="jellyfin-fields" style="display:none;">
+            <label>Jellyfin URL <input type="text" name="jellyfin_url" placeholder="http://localhost:8096"></label>
+            <label>Jellyfin API Key <input type="text" name="jellyfin_api_key"></label>
+            <label>Jellyfin User ID <input type="text" name="jellyfin_user"></label>
+        </div>
+        <label>Radarr URL <input type="text" name="radarr_url" placeholder="http://localhost:7878"></label>
+<small style="color: #888; font-size: 0.9em; margin-left:2px;">Must start with http:// or https://</small>
+        <label>Radarr API Key <input type="text" name="radarr_api_key"></label>
+        <label>LLM Provider
+            <select name="llm_provider" id="llm_provider" required>
+                <option value="groq">Groq</option>
+                <option value="ollama">Ollama</option>
+                <option value="openai">OpenAI</option>
+            </select>
+        </label>
+        <div id="groq-fields">
+            <label>Groq API Key <input type="text" name="groq_api_key"></label>
+        </div>
+        <div id="ollama-fields" style="display:none;">
+            <label>Ollama URL <input type="text" name="ollama_url" placeholder="http://localhost:11434"></label>
+        </div>
+        <div id="openai-fields" style="display:none;">
+            <label>OpenAI API Key <input type="text" name="openai_api_key"></label>
+        </div>
+        <button type="submit">Save and Start</button>
+    </form>
+</div>
+<script>
+    // Show/hide fields based on selections
+    document.getElementById('media_server').addEventListener('change', function() {
+        document.getElementById('plex-fields').style.display = this.value === 'plex' ? '' : 'none';
+        document.getElementById('jellyfin-fields').style.display = this.value === 'jellyfin' ? '' : 'none';
+    });
+    document.getElementById('llm_provider').addEventListener('change', function() {
+        document.getElementById('groq-fields').style.display = this.value === 'groq' ? '' : 'none';
+        document.getElementById('ollama-fields').style.display = this.value === 'ollama' ? '' : 'none';
+        document.getElementById('openai-fields').style.display = this.value === 'openai' ? '' : 'none';
+    });
+</script>
+</body>
+</html>

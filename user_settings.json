@@ -1,1 +1,1 @@
-{"root_folder": "/data/FILM", "quality_profile": "MULTI VF VO", "plex_library": "Films", "language": "french", "model": "llama-3.1-8b-instant"}
+{"media_server": "", "plex_url": "", "plex_token": "", "jellyfin_url": "", "jellyfin_api_key": "", "jellyfin_user": "", "radarr_url": "", "radarr_api_key": "", "llm_provider": "", "groq_api_key": "", "ollama_url": "", "openai_api_key": "", "root_folder": "", "quality_profile": "", "plex_library": "", "language": "", "model": ""}
